@@ -17,9 +17,7 @@ class Main extends React.Component{
         this.state = {
             currNote: this.blankNote(),
 
-            noteList: [{id: '1', title: 'Kohlrabi welsh', text: 'Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.'},
-            {id: '2', title: 'Dandelion cucumber', text: 'Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini.'},
-            {id: '3', title: 'Prairie turnip', text: 'Nori grape silver beet broccoli kombu beet greens fava bean potato quandong celery. Bunya nuts black-eyed pea prairie turnip leek lentil turnip greens parsnip.'}],
+            noteList: [],
         }
     }
     
@@ -38,14 +36,22 @@ class Main extends React.Component{
     }
 
     saveNote = (note) => {
-        const noteListTemp = [...this.state.noteList];
-        const idx = noteListTemp.findIndex(currNote => currNote.id === note.id);
-        noteListTemp[idx] = note;
-
+        const noteList = [...this.state.noteList];
+        const idx = noteList.findIndex(currNote => currNote.id === note.id);
+        
+        if(idx === -1){
+            note.id = noteList.length + 1;
+            noteList.push(note);
+        }
+        else{
+            const idx = noteList.findIndex(currNote => currNote.id === note.id);
+            noteList[idx] = note;
+        }
+        
         this.setState({
             currNote: note,
-            noteList: noteListTemp
-        })
+            noteList
+        })        
     }
 
     resetCurrNote = () => {
