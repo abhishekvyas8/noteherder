@@ -110,7 +110,7 @@ class Sidebar extends React.Component {
                 </a>
                 <div className="SignOut" style = {style.signOut}>
                     <button style = {style.button}>
-                        <i className="fa fa-sign-out" style = {style.i}></i>
+                        <i className="fas fa-sign-out-alt" title = "sign out" style = {style.i}></i>
                     </button>
                 </div>
             </nav>

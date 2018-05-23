@@ -35,12 +35,13 @@
   .NoteForm input[name=title] {
     border: none;
     font-size: 200%;
-    font-family: Fauna One;
+    font-family: 'Fauna One';
     color: #008bf8;
     font-weight: 400;
     width: 100%;
     outline: none;
   }
+
   .NoteForm textarea {
     border-color: #eee;
     width: 100%;
