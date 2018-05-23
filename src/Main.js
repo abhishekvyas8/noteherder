@@ -23,12 +23,8 @@ class Main extends React.Component{
     }
     
     receiveData = (data)=>{
-        let tempNote = Object.assign({}, this.state.note);
-        tempNote.title = data.title;
-        tempNote.text = data.text;
-
         this.setState({
-            note: tempNote,
+            note: data,
         })
 
         
