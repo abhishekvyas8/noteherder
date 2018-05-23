@@ -26,7 +26,7 @@ class Main extends React.Component{
     blankNote = () => {
         return({
             id: 'null',
-            title: 'Title your note',
+            title: '',
             text: '',
         });
     }
@@ -35,6 +35,17 @@ class Main extends React.Component{
         this.setState({
             currNote: note
         });
+    }
+
+    saveNote = (note) => {
+        const noteListTemp = [...this.state.noteList];
+        const idx = noteListTemp.findIndex(currNote => currNote.id === note.id);
+        noteListTemp[idx] = note;
+
+        this.setState({
+            currNote: note,
+            noteList: noteListTemp
+        })
     }
 
     resetCurrNote = () => {
@@ -52,7 +63,7 @@ class Main extends React.Component{
             <div className = "Main" style = {style}>
                 <Sidebar resetCurrentNote = {this.resetCurrNote}/>
                 <NoteList noteList = {this.state.noteList} setCurrNote = {this.setCurrNote}/>
-                <NoteForm currNote = {this.state.currNote}/>
+                <NoteForm currNote = {this.state.currNote} saveNote = {this.saveNote}/>
             </div>
         );
     }
