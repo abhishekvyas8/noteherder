@@ -14,11 +14,12 @@ const NoteForm = (props) => {
                 <input
                 type="text"
                 name="title"
-                placeholder= {props.currNote.title}
+                placeholder = ""
+                value= {props.currNote.title}
                 />
             </p>
             
-            <textarea name="body" value = {props.currNote.text} onChange = {(ev) => {this.updateText(ev)}}>
+            <textarea name="body" value = {props.currNote.text}>
             </textarea>
             </form>
     </div>

@@ -15,20 +15,30 @@ class Main extends React.Component{
         super();
 
         this.state = {
-            currNote: {
-                title: 'Title your note',
-                text: ''
-            },
+            currNote: this.blankNote(),
 
-            noteList: [{title: 'Kohlrabi welsh', text: 'Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.'},
-            {title: 'Dandelion cucumber', text: 'Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini.'},
-            {title: 'Prairie turnip', text: 'Nori grape silver beet broccoli kombu beet greens fava bean potato quandong celery. Bunya nuts black-eyed pea prairie turnip leek lentil turnip greens parsnip.'}],
+            noteList: [{id: '1', title: 'Kohlrabi welsh', text: 'Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.'},
+            {id: '2', title: 'Dandelion cucumber', text: 'Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini.'},
+            {id: '3', title: 'Prairie turnip', text: 'Nori grape silver beet broccoli kombu beet greens fava bean potato quandong celery. Bunya nuts black-eyed pea prairie turnip leek lentil turnip greens parsnip.'}],
         }
     }
+    
+    blankNote = () => {
+        return({
+            id: 'null',
+            title: 'Title your note',
+            text: '',
+        });
+    }
+
     setCurrNote = (note) => {
         this.setState({
             currNote: note
         });
+    }
+
+    resetCurrNote = () => {
+        this.setCurrNote(this.blankNote());
     }
     
     receiveData = (data)=>{
@@ -40,7 +50,7 @@ class Main extends React.Component{
     render(){
         return(
             <div className = "Main" style = {style}>
-                <Sidebar />
+                <Sidebar resetCurrentNote = {this.resetCurrNote}/>
                 <NoteList noteList = {this.state.noteList} setCurrNote = {this.setCurrNote}/>
                 <NoteForm currNote = {this.state.currNote}/>
             </div>

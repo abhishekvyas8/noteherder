@@ -64,8 +64,8 @@ const style = {
 
 
 class Sidebar extends React.Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
 
         this.state = {
             aImageHover: {
@@ -104,6 +104,10 @@ class Sidebar extends React.Component {
                 </div>
                 <a className="new-note" href="/notes" style = {style.newNote} 
                     onMouseEnter = {()=> this.handleEnter()} onMouseLeave = {()=> this.handleLeave()}
+                    onClick = {(ev) => {
+                        ev.preventDefault();
+                        this.props.resetCurrentNote();
+                    }}
                 >
                     <img src={newHover} alt="New note" style = {style.aImage}/>
                     <img className="outline" src={newIcon} alt="New note" style = {this.state.aImageHover} />
