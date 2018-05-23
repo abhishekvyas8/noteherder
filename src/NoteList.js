@@ -3,14 +3,15 @@ import './NoteList.css';
 import Note from './Note.js'
 
 const NoteList = ({noteList, setCurrNote}) => {
+    const notes = [...noteList];
+
     return(
         <div className="NoteList" >
             <h3 >Notes</h3>
             <ul id="notes" >
 
-            {console.log(noteList)}
-
-            {noteList.map(note => {
+            {  
+                notes.map(note => {
                 return(
                     <Note note = {note} setCurrNote= {setCurrNote}  key = {noteList.indexOf(note)}/>
                 )

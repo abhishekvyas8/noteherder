@@ -15,15 +15,10 @@ class Main extends React.Component{
     constructor(){
         super();
 
-        let notesTemp = []
-        if(JSON.parse(localStorage.getItem('noteList')).length !== 0){
-            notesTemp = JSON.parse(localStorage.getItem('noteList'))
-        }
-
         this.state = {
             currNote: this.blankNote(),
 
-            noteList: notesTemp,
+            noteList: JSON.parse(localStorage.getItem('noteList')),
         }
     }
 
