@@ -2,6 +2,7 @@ import React from 'react'
 import Sidebar from './Sidebar.js'
 import NoteList from './NoteList.js'
 import NoteForm from './NoteForm.js'
+import base from './firebaseSetup.js'
 
 const style = {
     display: 'flex',
@@ -14,11 +15,23 @@ class Main extends React.Component{
     constructor(){
         super();
 
+        let notesTemp = []
+        if(JSON.parse(localStorage.getItem('noteList')).length !== 0){
+            notesTemp = JSON.parse(localStorage.getItem('noteList'))
+        }
+
         this.state = {
             currNote: this.blankNote(),
 
-            noteList: JSON.parse(localStorage.getItem('noteList')),
+            noteList: notesTemp,
         }
+    }
+
+    componentWillMount(){
+        base.syncState('Notes', {
+            context: this,
+            state: 'noteList',
+        })
     }
     
     blankNote = () => {
