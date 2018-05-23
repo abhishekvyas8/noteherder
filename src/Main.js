@@ -52,7 +52,6 @@ class Main extends React.Component{
             noteList.push(note);
         }
         else{
-            const idx = noteList.findIndex(currNote => currNote.id === note.id);
             noteList[idx] = note;
         }
 
