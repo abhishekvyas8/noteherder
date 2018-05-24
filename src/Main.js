@@ -27,6 +27,8 @@ class Main extends React.Component{
             context: this,
             state: 'noteList',
         })
+
+        localStorage.setItem('noteList', JSON.stringify(this.state.noteList));
     }
     
     blankNote = () => {
@@ -54,8 +56,6 @@ class Main extends React.Component{
         else{
             noteList[idx] = note;
         }
-
-        localStorage.setItem('noteList', JSON.stringify(noteList));
         
         this.setState({
             currNote: note,
@@ -78,8 +78,6 @@ class Main extends React.Component{
                 currNote: this.blankNote(),
                 noteList
             })
-
-            localStorage.setItem('noteList', JSON.stringify(noteList));
         }
     }
 
