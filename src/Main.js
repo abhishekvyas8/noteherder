@@ -26,6 +26,7 @@ class Main extends React.Component{
         base.syncState('Notes', {
             context: this,
             state: 'noteList',
+            asArray: true,
         })
     }
     
