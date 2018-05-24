@@ -21,19 +21,28 @@ class App extends Component {
       else{
         this.handleUnAuth();
       }
+    });
+
+    this.setState({
+      uid: JSON.parse(localStorage.getItem('uid'))
     })
+  }
+
+  componentDidMount(){
   }
 
   handleAuth = () => {
     this.setState({
       uid: 'hi',
     })
+    window.localStorage.setItem('uid', JSON.stringify(this.state.uid));
   }
 
   handleUnAuth = () => {
     this.setState({
       uid: null,
     });
+    window.localStorage.setItem('uid', JSON.stringify(this.state.uid));
   }
 
   signOut = () => {
