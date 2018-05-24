@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Main from './Main.js'
 import SignIn from './SignIn.js'
+import {auth} from './firebaseSetup.js'
 
 class App extends Component {
   constructor(){
@@ -12,16 +13,31 @@ class App extends Component {
     }
   }
 
+  componentWillMount(){
+    auth.onAuthStateChanged((user) => {
+      if(user){
+        this.handleAuth();
+      }
+      else{
+        this.handleUnAuth();
+      }
+    })
+  }
+
   handleAuth = () => {
     this.setState({
       uid: 'hi',
     })
   }
 
-  signOut = () => {
+  handleUnAuth = () => {
     this.setState({
       uid: null,
-    })
+    });
+  }
+
+  signOut = () => {
+    auth.signOut();
   }
 
   signedIn = () => {
