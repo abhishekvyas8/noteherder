@@ -113,7 +113,7 @@ class Sidebar extends React.Component {
                     <img className="outline" src={newIcon} alt="New note" style = {this.state.aImageHover} />
                 </a>
                 <div className="SignOut" style = {style.signOut}>
-                    <button style = {style.button}>
+                    <button style = {style.button} onClick = {this.props.signOut}>
                         <i className="fas fa-sign-out-alt" title = "sign out" style = {style.i}></i>
                     </button>
                 </div>
