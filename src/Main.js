@@ -23,7 +23,7 @@ class Main extends React.Component{
     }
 
     componentWillMount(){
-        base.syncState('Notes', {
+        base.syncState(this.props.uid, {
             context: this,
             state: 'noteList',
             asArray: true,
