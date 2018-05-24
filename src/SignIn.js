@@ -13,10 +13,10 @@ const SignIn = () => {
 
     return(
         <div className="SignIn">
-            {/* <header className="Header">
+            <header className="Header">
             <img src={quill} alt="" />
             <span className="title">Noteherder</span>
-            </header> */}
+            </header>
             <main>
             <h3>Hey, Nerd! You Like Notes?</h3>
             <p>You never know when you'll need to write crap down. In fact, you should probably be taking notes right now.</p>
