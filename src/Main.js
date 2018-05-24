@@ -18,7 +18,7 @@ class Main extends React.Component{
         this.state = {
             currNote: this.blankNote(),
 
-            noteList: JSON.parse(localStorage.getItem('noteList')),
+            noteList: []
         }
     }
 
@@ -27,8 +27,6 @@ class Main extends React.Component{
             context: this,
             state: 'noteList',
         })
-
-        localStorage.setItem('noteList', JSON.stringify(this.state.noteList));
     }
     
     blankNote = () => {
@@ -60,7 +58,7 @@ class Main extends React.Component{
         this.setState({
             currNote: note,
             noteList
-        })        
+        })   
     }
 
     resetCurrNote = () => {
