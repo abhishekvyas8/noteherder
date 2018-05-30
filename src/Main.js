@@ -17,8 +17,6 @@ class Main extends React.Component{
         super();
 
         this.state = {
-            currNote: this.blankNote(),
-
             noteList: []
         }
     }
@@ -31,19 +29,6 @@ class Main extends React.Component{
         })
     }
     
-    blankNote = () => {
-        return({
-            id: 'null',
-            title: '',
-            text: '',
-        });
-    }
-
-    setCurrNote = (note) => {
-        this.setState({
-            currNote: note
-        });
-    }
 
     saveNote = (note) => {
         let shouldRedirect = false;
@@ -70,9 +55,6 @@ class Main extends React.Component{
         )   
     }
 
-    resetCurrNote = () => {
-        this.setCurrNote(this.blankNote());
-    }
     
     deleteNote = (note) => {
         const noteList = [...this.state.noteList];
@@ -82,9 +64,9 @@ class Main extends React.Component{
             noteList.splice(idx, 1);
 
             this.setState({
-                currNote: this.blankNote(),
                 noteList
             })
+            this.props.history.push('/notes');
         }
     }
 
