@@ -1,126 +1,96 @@
 import React from 'react'
+import { StyleSheet, css } from 'aphrodite'
+import { Link } from 'react-router-dom'
+
 import quill from './quill.svg'
-import newHover from './new-hover.png'
 import newIcon from './new.png'
+import newHover from './new-hover.png'
 
-    /*
-.Sidebar a:hover img.outline {
-  opacity: 0;
-}
-*/
-
-const style = {
-    sidebar: {
-        width: '6rem',
-        backgroundColor: '#f3f3f3',
-        padding: '0.5rem 0',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-
-    logo: {
-        fontFamily: '"Fauna One"',
-        color: '#666',
-        fontSize: '3rem',
-    },
-
-    logoImage: {
-        width: '3rem',
-        paddingLeft: '0.4rem',
-    },
-
-    newNote: {
-        marginTop: '2rem',
-        position: 'relative',
-        width: '4rem',
-    },
-
-    button: {
-        backgroundColor: 'transparent',
-        border: '0rem',
-        color: '#008BF8',
-        cursor: 'pointer',
-        outline: 'none',
-    },
-
-    signOut: {
-        position: 'absolute',
-        bottom: '1rem',
-    },
-
-    i: {
-        fontSize: '2rem',
-    },
-    
-    aImage: {
-        position: 'absolute',
-        left: '0',
-        width: '100%',
-        transition: 'opacity 0.25s ease-in-out',
-        opacity: ''
-    }
+const Sidebar = ({ signOut }) => {
+  return (
+    <nav className={css(styles.sidebar)}>
+      <div className={css(styles.logo)}>
+        <img
+          src={quill}
+          alt="Noteherder"
+          className={css(styles.logoImg)}
+        />
+      </div>
+      <Link to="/notes" className={css(styles.newNote)}>
+        <img
+          src={newHover}
+          alt="New note"
+          className={css(styles.newNoteImg)}
+        />
+        <img
+          src={newIcon}
+          alt="New note"
+          className={css(styles.newNoteImg, styles.newNoteImgHover)}
+        />
+      </Link>
+      <div className={css(styles.signOut)}>
+        <button
+          className={css(styles.button)}
+          onClick={signOut}
+        >
+          <i
+            className={`fas fa-sign-out-alt ${css(styles.buttonIcon)}`}
+            title="sign out"
+          ></i>
+        </button>
+      </div>
+    </nav>
+  )
 }
 
+const styles = StyleSheet.create({
+  sidebar: {
+    width: '6rem',
+    backgroundColor: '#f3f3f3',
+    padding: '0.5rem 0',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  logo: {
+    fontFamily: '"Fauna One"',
+    color: '#666',
+    fontSize: '3rem',
+  },
+  logoImg: {
+    width: '3rem',
+    paddingLeft: '0.4rem',
+  },
+  newNote: {
+    marginTop: '2rem',
+    position: 'relative',
+    width: '4rem',
+  },
+  newNoteImg: {
+    position: 'absolute',
+    left: '0',
+    width: '100%',
+    transition: 'opacity 0.25s ease-in-out',
+  },
+  newNoteImgHover: {
+    ':hover': {
+      opacity: 0,
+    },
+  },
+  signOut: {
+    position: 'absolute',
+    bottom: '1rem',
+  },
+  button: {
+    backgroundColor: 'transparent',
+    border: '0',
+    color: '#008bf8',
+    cursor: 'pointer',
+    outline: 'none',
+  },
+  buttonIcon: {
+    fontSize: '2rem',
+  },
+})
 
-class Sidebar extends React.Component {
-    constructor(props){
-        super(props)
-
-        this.state = {
-            aImageHover: {
-                position: 'absolute',
-                left: '0',
-                width: '100%',
-                transition: 'opacity 0.25s ease-in-out',
-                opacity: '',
-            }
-        }
-    }
-
-    handleEnter(){
-        let tempStyle = Object.assign({}, this.state.aImageHover);
-        tempStyle.opacity = '0';
-        
-        this.setState({
-            aImageHover: tempStyle,
-        })
-    }
-
-    handleLeave(){
-        let tempStyle = Object.assign({}, this.state.aImageHover);
-        tempStyle.opacity = '';
-        
-        this.setState({
-            aImageHover: tempStyle,
-        })
-    }
-
-    render(){
-        return(
-            <nav className="Sidebar" style = {style.sidebar}>
-                <div className="logo" style = {style.logo}>
-                    <img src={quill} alt="Noteherder"  style = {style.logoImage}/>
-                </div>
-                <a className="new-note" href="/notes" style = {style.newNote} 
-                    onMouseEnter = {()=> this.handleEnter()} onMouseLeave = {()=> this.handleLeave()}
-                    onClick = {(ev) => {
-                        ev.preventDefault();
-                        this.props.resetCurrentNote();
-                    }}
-                >
-                    <img src={newHover} alt="New note" style = {style.aImage}/>
-                    <img className="outline" src={newIcon} alt="New note" style = {this.state.aImageHover} />
-                </a>
-                <div className="SignOut" style = {style.signOut}>
-                    <button style = {style.button} onClick = {this.props.signOut}>
-                        <i className="fas fa-sign-out-alt" title = "sign out" style = {style.i}></i>
-                    </button>
-                </div>
-            </nav>
-        )
-    }
-    
-}
-
-export default Sidebar;
+export default Sidebar

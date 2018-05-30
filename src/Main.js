@@ -1,4 +1,5 @@
 import React from 'react'
+import { Switch, Route } from 'react-router-dom';
 import Sidebar from './Sidebar.js'
 import NoteList from './NoteList.js'
 import NoteForm from './NoteForm.js'
@@ -45,21 +46,28 @@ class Main extends React.Component{
     }
 
     saveNote = (note) => {
+        let shouldRedirect = false;
         const noteList = [...this.state.noteList];
         const idx = noteList.findIndex(currNote => currNote.id === note.id);
         
         if(idx === -1){
             note.id = Date.now();
             noteList.push(note);
+            shouldRedirect = true;
         }
         else{
             noteList[idx] = note;
         }
         
         this.setState({
-            currNote: note,
             noteList
-        })   
+        },
+        () => {
+            if(shouldRedirect){
+                this.props.history.push(`/notes/${note.id}`);
+            }
+        }
+        )   
     }
 
     resetCurrNote = () => {
@@ -84,8 +92,22 @@ class Main extends React.Component{
         return(
             <div className = "Main" style = {style}>
                 <Sidebar resetCurrentNote = {this.resetCurrNote} signOut = {this.props.signOut}/>
-                <NoteList noteList = {this.state.noteList} setCurrNote = {this.setCurrNote}/>
-                <NoteForm currNote = {this.state.currNote} saveNote = {this.saveNote} deleteNote = {this.deleteNote}/>
+                <NoteList noteList = {this.state.noteList}/>
+                {/* <NoteForm currNote = {this.state.currNote} saveNote = {this.saveNote} deleteNote = {this.deleteNote}/> */}
+
+                <Switch>
+                    <Route 
+                        path = "/notes/:id"
+                        render = {(navProps)=> (
+                            <NoteForm currNote = {this.state.currNote} saveNote = {this.saveNote} deleteNote = {this.deleteNote} noteList = {this.state.noteList}{...navProps}/>
+                        )}
+                    />
+                    <Route 
+                        render = {(navProps)=> (
+                            <NoteForm currNote = {this.state.currNote} saveNote = {this.saveNote} deleteNote = {this.deleteNote} noteList = {this.state.noteList} {...navProps}/>
+                        )}
+                    />
+                </Switch>
             </div>
         );
     }

@@ -2,7 +2,7 @@ import React from 'react'
 import './NoteList.css';
 import Note from './Note.js'
 
-const NoteList = ({noteList, setCurrNote}) => {
+const NoteList = ({noteList}) => {
     return(
         <div className="NoteList" >
             <h3 >Notes</h3>
@@ -11,7 +11,7 @@ const NoteList = ({noteList, setCurrNote}) => {
             {  
                 noteList.map(note => {
                 return(
-                    <Note note = {note} setCurrNote= {setCurrNote}  key = {noteList.indexOf(note)}/>
+                    <Note note = {note}  key = {noteList.indexOf(note)}/>
                 )
             })}
             </ul>

@@ -57,17 +57,17 @@ class App extends Component {
         <Switch>
           <Route 
             path = "/sign-in" 
-            render = {() => 
+            render = {(navProps) => 
               this.signedIn()
               ? <Redirect to = "/notes"/>
-              : <SignIn handleAuth = {this.handleAuth}/>
+              : <SignIn handleAuth = {this.handleAuth} {...navProps}/>
             }
           /> 
           <Route 
             path = "/notes" 
-            render = {() => 
+            render = {(navProps) => 
               this.signedIn()
-              ? <Main signOut = {this.signOut} uid = {this.state.uid}/>
+              ? <Main signOut = {this.signOut} uid = {this.state.uid} {...navProps}/>
               : <Redirect to = "/sign-in"/>
           }
           />
@@ -79,7 +79,6 @@ class App extends Component {
             ) 
           }/>
         </Switch>
-        {/* {this.signedIn() ? <Main signOut = {this.signOut} uid = {this.state.uid}/> : <SignIn handleAuth = {this.handleAuth}/>} */}
       </div>
     );
   }

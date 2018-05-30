@@ -1,40 +1,71 @@
-import React from 'react'
-import './NoteForm.css';
+import React, { Component } from 'react'
 
-const NoteForm = ({currNote, saveNote, deleteNote}) => {
+import './NoteForm.css'
 
-    const handleChanges = (ev) => {
-        const note = {...currNote};
-        note[ev.target.name] = ev.target.value;
-        saveNote(note);
+class NoteForm extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      note: this.blankNote(),
+    }
+  }
+
+    componentWillReceiveProps = (newProps) => {
+        const newId = newProps.match.params.id
+        const idx = newProps.noteList.findIndex(currentNote => currentNote.id.toString() === newId)
+        const note = newProps.noteList[idx] || this.blankNote()
+        this.setState({ note })
     }
 
-    return(
-        <div className="NoteForm">
-            <div className="form-actions">
-            <button type="button" onClick = {(ev) => {
-                ev.preventDefault();
-                deleteNote(currNote);
-            }}>
-                <i className="fa fa-trash-alt"></i>
-            </button>
-            </div>
-            <form>
-                <p>
-                    <input
-                    type="text"
-                    name="title"
-                    placeholder = "Title your note"
-                    value= {currNote.title}
-                    onChange = {handleChanges}
-                    />
-                </p>
-                
-                <textarea name="text" value = {currNote.text} onChange = {handleChanges}>
-                </textarea>
-            </form>
-    </div>
+  blankNote = () => {
+    return {
+      id: null,
+      title: '',
+      body: '',
+    }
+  }
+
+  handleChanges = (ev) => {
+    const note = {...this.state.note}
+    note[ev.target.name] = ev.target.value
+    this.setState(
+      { note },
+      () => this.props.saveNote(note)
     )
+  }
+
+  render() {
+    const { deleteNote } = this.props
+    return (
+      <div className="NoteForm">
+        <div className="form-actions">
+          <button
+            type="button"
+            onClick={() => deleteNote(this.state.note)}
+          >
+            <i className="far fa-trash-alt"></i>
+          </button>
+        </div>
+        <form>
+          <p>
+            <input
+              type="text"
+              name="title"
+              placeholder="Title your note"
+              value={this.state.note.title}
+              onChange={this.handleChanges}
+            />
+          </p>
+
+          <textarea
+            name="body"
+            value={this.state.note.body}
+            onChange={this.handleChanges}
+          ></textarea>
+        </form>
+      </div>
+    )
+  }
 }
 
-export default NoteForm;
+export default NoteForm
