@@ -34,6 +34,9 @@ class Main extends React.Component{
         let shouldRedirect = false;
         const noteList = [...this.state.noteList];
         const idx = noteList.findIndex(currNote => currNote.id === note.id);
+
+        const timeStamp = Date.now();
+        note.updatedAt = timeStamp;
         
         if(idx === -1){
             note.id = Date.now();
@@ -43,6 +46,10 @@ class Main extends React.Component{
         else{
             noteList[idx] = note;
         }
+
+        noteList.sort((a,b) => {
+            return(b.updatedAt - a.updatedAt);
+        })
         
         this.setState({
             noteList
